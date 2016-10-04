@@ -1,11 +1,14 @@
 package com.talleresicesi.edwardfigueroa_semana9colorpicketxml;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,15 +21,18 @@ import contenido.Bolita;
 
 public class MainActivity extends AppCompatActivity implements Observer{
 
+    private int red, green, blue;
+
 
     EditText posicionX;
     EditText posicionY;
     EditText diametro;
-    EditText r;
-    EditText g;
-    EditText b;
+    SeekBar r;
+    SeekBar g;
+    SeekBar b;
     Button enviar;
     Comunicacion com;
+    private ImageView colorpik;
 
 
     @Override
@@ -37,11 +43,69 @@ public class MainActivity extends AppCompatActivity implements Observer{
         posicionX = (EditText) findViewById(R.id.inputx);
         posicionY = (EditText) findViewById(R.id.inputy);
         diametro = (EditText) findViewById(R.id.inputdiam);
-        r = (EditText) findViewById(R.id.r);
-        g = (EditText) findViewById(R.id.g);
-        b = (EditText) findViewById(R.id.b);
+        r = (SeekBar) findViewById(R.id.r);
+        g = (SeekBar) findViewById(R.id.g);
+        b = (SeekBar) findViewById(R.id.b);
         enviar= (Button) findViewById(R.id.enviar);
         com.getInstance().addObserver(this);
+        colorpik = (ImageView) findViewById(R.id.color);
+
+        r.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                red = progress;
+                colorpik.setBackgroundColor(Color.argb(255,red,green,blue));
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        g.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                green = progress;
+                colorpik.setBackgroundColor(Color.argb(255,red,green,blue));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        b.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                blue = progress;
+                colorpik.setBackgroundColor(Color.argb(255,red,green ,blue));
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
 
@@ -52,25 +116,20 @@ public class MainActivity extends AppCompatActivity implements Observer{
         String posX = posicionX.getText().toString();
         String posY = posicionY.getText().toString();
         String tamano = diametro.getText().toString();
-        String colorR= r.getText().toString();
-        String colorG= g.getText().toString();
-        String colorB= b.getText().toString();
+
 
         int x= Integer.parseInt(posX);
         int y= Integer.parseInt(posY);
         int diam= Integer.parseInt(tamano);
-        int rr=Integer.parseInt(colorR);
-        int gg= Integer.parseInt(colorG);
-        int bb=Integer.parseInt(colorB);
+        int rr=red;
+        int gg= green;
+        int bb=blue;
 
         Bolita bol = new Bolita(x, y, diam, rr, gg, bb);
 
 
 
         com.getInstance().sendMessage(bol, com.getInstance().MULTI_GROUP_ADDRESS, com.getInstance().DEFAULT_PORT);
-
-        //MyTask mk= new MyTask();
-        //mk.execute(bol);
 
 
 
@@ -82,63 +141,6 @@ public class MainActivity extends AppCompatActivity implements Observer{
 
     }
 
-
-    private class MyTask extends AsyncTask<Bolita, Integer, String> {
-
-
-        DatagramPacket packet;
-        DatagramSocket soc;
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-
-
-        }
-
-        private byte[] serializar(Object data) {
-            byte[] bytes = null;
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ObjectOutputStream oos = new ObjectOutputStream(baos);
-                oos.writeObject(data);
-                bytes = baos.toByteArray();
-
-                // Close streams
-                oos.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bytes;
-        }
-
-
-        @Override
-        protected String doInBackground(Bolita... params) {
-
-
-            return "this string is passed to onPostExecute";
-        }
-
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-
-        }
-    }
 
 
 }

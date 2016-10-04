@@ -42,36 +42,6 @@
         android:layout_alignParentStart="true" />
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/r"
-        android:hint="R"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/inputdiam"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/g"
-        android:hint="G"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/r"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/b"
-        android:hint="B"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/g"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentStart="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,6 +50,47 @@
         android:onClick="enviar"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:id="@+id/r"
+        android:layout_centerVertical="true"
+        android:max="255"
+        android:layout_centerHorizontal="true" />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/g"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/r"
+        android:layout_marginTop="35px"
+        android:layout_centerHorizontal="true"
+        android:max="255"
+        android:indeterminate="false" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/b"
+        android:layout_centerVertical="true"
+        android:layout_below="@id/g"
+        android:layout_marginTop="35px"
+        android:max="255"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20px"
+        android:id="@+id/color"
+        android:layout_below="@+id/b"
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="33dp"
+        android:background="@android:color/black"
+
+        />
 
 
 </RelativeLayout>
